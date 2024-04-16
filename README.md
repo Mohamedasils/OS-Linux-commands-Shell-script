@@ -24,30 +24,29 @@ Testing the commands for the desired output.
 ### Create the following files file1, file2 as follows:
 cat > file1
 ```
-chanchal singhvi
-c.k. shukla
-s.n. dasgupta
-sumit chakrobarty
+rayan
+hafish
+asil
 ^d
 ```
 cat > file2
 ```
-anil aggarwal
-barun sengupta
-c.k. shukla
-lalit chowdury
-s.n. dasgupta
+haju
+agilan
+harish
 ^d
 ```
 ### Display the content of the files
 cat < file1
 ## OUTPUT
-
-
-
+rayan
+hafish
+asil
 cat < file2
 ## OUTPUT
-
+haju
+agilan
+harish
 
 # Comparing Files
 cmp file1 file2
@@ -55,11 +54,24 @@ cmp file1 file2
  
 comm file1 file2
  ## OUTPUT
-
+haju
+agilan
+harish 
+    rayan
+hafish
+asil
  
 diff file1 file2
 ## OUTPUT
-
+--- file1
++++ file2
+@@ -1,3 +1,3 @@
+-rayan
+-hafish
+-asil
++haju
++agilan
++harish
 
 #Filters
 
@@ -82,18 +94,23 @@ cat > file22
 
 cut -c1-3 file11
 ## OUTPUT
-
+Hel
+Thi
 
 
 
 cut -d "|" -f 1 file22
 ## OUTPUT
-
+1001
+1002
+1003
 
 
 cut -d "|" -f 2 file22
 ## OUTPUT
-
+Ram
+tom
+Joe
 
 cat < newfile 
 ```
@@ -108,28 +125,28 @@ hello world
 grep Hello newfile 
 ## OUTPUT
 
-
+hello world
 
 grep hello newfile 
 ## OUTPUT
-
+Hello world
 
 
 
 grep -v hello newfile 
 ## OUTPUT
-
+Hello world
 
 
 cat newfile | grep -i "hello"
 ## OUTPUT
 
-
+Hello world
 
 
 cat newfile | grep -i -c "hello"
 ## OUTPUT
-
+2
 
 
 
@@ -140,7 +157,8 @@ grep -R ubuntu /etc
 
 grep -w -n world newfile   
 ## OUTPUT
-
+1: Hello world
+2: hello world
 
 cat < newfile 
 ```
@@ -163,60 +181,69 @@ Linux is best in this World
  ```
 egrep -w 'Hello|hello' newfile 
 ## OUTPUT
-
+Hello world
+hello world
 
 
 egrep -w '(H|h)ello' newfile 
 ## OUTPUT
-
+Hello world
+hello world
 
 
 egrep -w '(H|h)ell[a-z]' newfile 
 ## OUTPUT
-
+Hello world
+hello world
 
 
 
 egrep '(^hello)' newfile 
 ## OUTPUT
-
+hello world
 
 
 egrep '(world$)' newfile 
 ## OUTPUT
-
+Hello world
+hello world
 
 
 egrep '(World$)' newfile 
 ## OUTPUT
-
+Linux is best in this World
 
 egrep '((W|w)orld$)' newfile 
 ## OUTPUT
 
-
+Hello world
+hello world
+Linux is best in this World
 
 egrep '[1-9]' newfile 
 ## OUTPUT
-
+Linux is world number 1
 
 
 egrep 'Linux.*world' newfile 
 ## OUTPUT
-
+Linux is world number 1
 
 egrep 'Linux.*World' newfile 
 ## OUTPUT
-
+Linux is best in this World
 
 egrep l{2} newfile
 ## OUTPUT
-
+Hello world
+hello world
 
 
 egrep 's{1,2}' newfile
 ## OUTPUT 
-
+Linux is world number 1
+Unix is predecessor
+Linux is best in this World
 
 cat > file23
 ```
@@ -234,76 +261,123 @@ cat > file23
 
 sed -n -e '3p' file23
 ## OUTPUT
-
+1002 | tom |  5000 | Admin
 
 
 sed -n -e '$p' file23
 ## OUTPUT
-
+1001 | Ram | 10000 | HR
 
 
 sed  -e 's/Ram/Sita/' file23
 ## OUTPUT
-
+1001 | Sit | 10000 | HR
+1001 | Sit | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Sit | 10000 | HR
 
 
 sed  -e '2s/Ram/Sita/' file23
 ## OUTPUT
-
+1001 | Ram | 10000 | HR
+1001 | Sit | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Ram | 10000 | HR
 
 
 sed  '/tom/s/5000/6000/' file23
 ## OUTPUT
-
+1001 | Ram | 10000 | HR
+1001 | Ram | 10000 | HR
+1002 | tom |  6000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
+1003 | Joe |  7000 | Developer
+1001 | Ram | 10000 | HR
 
 
 sed -n -e '1,5p' file23
 ## OUTPUT
-
+1001 | Ram | 10000 | HR
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
 
 
 sed -n -e '2,/Joe/p' file23
 ## OUTPUT
-
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
 
 
 
 sed -n -e '/tom/,/Joe/p' file23
 ## OUTPUT
-
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
 
 
 seq 10 
 ## OUTPUT
-
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
 
 
 seq 10 | sed -n '4,6p'
 ## OUTPUT
-
+4
+5
+6
 
 
 seq 10 | sed -n '2,~4p'
 ## OUTPUT
-
+sed: no address after comma
 
 
 seq 3 | sed '2a hello'
 ## OUTPUT
-
+1
+2
+hello
+3
 
 
 seq 2 | sed '2i hello'
 ## OUTPUT
-
+1
+hello
+2
 
 seq 10 | sed '2,9c hello'
 ## OUTPUT
-
+1
+hello 10
 
 sed -n '2,4{s/^/$/;p}' file23
 ## OUTPUT
-
+$1001 | Ram | 10000 | HR
+$1002 | tom |  5000 | Admin
+$1003 | Joe |  7000 | Developer
 
 
 sed -n '2,4{s/$/*/;p}' file23
@@ -320,7 +394,11 @@ cat > file21
 ``` 
 sort file21
 ## OUTPUT
-
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1004 | Sit |  7000 | Dev
+1005 | Sam |  5000 | HR
 
 cat > file22
 ```
@@ -333,13 +411,25 @@ cat > file22
 ``` 
 uniq file22
 ## OUTPUT
-
+1001 | Ram | 10000 | HR
+1002 | tom |  5000 | Admin
+1003 | Joe |  7000 | Developer
+1005 | Sam |  5000 | HR
+1004 | Sit |  7000 | Dev
 
 
 #Using tr command
 
 cat file23 | tr [:lower:] [:upper:]
  ## OUTPUT
+1001 | RAM | 10000 | HR
+1001 | RAM | 10000 | HR
+1002 | TOM |  5000 | ADMIN
+1003 | JOE |  7000 | DEVELOPER
+1005 | SAM |  5000 | HR
+1004 | SIT |  7000 | DEV
+1003 | JOE |  7000 | DEVELOPER
+1001 | RAM | 10000 | HR
 
 cat < urllist.txt
 ```
@@ -356,18 +446,34 @@ www. mrcet.... com
  ```
 cat urllist.txt | tr -d ' '
  ## OUTPUT
-
+www.yahoo.com
+www.google.com
+www.mrcet....com
 
  
 cat urllist.txt | tr -d ' ' | tr -s '.'
 ## OUTPUT
-
+www.yahoo.com
+www.google.com
+www.mrcet.com
 
 
 #Backup commands
 tar -cvf backup.tar *
 ## OUTPUT
-
+bench.py
+file
+file1
+file11
+file2
+file21
+file22
+file23
+hello.c
+hello.js
+newfile
+readme.txt
+urllist.txt
 
 mkdir backupdir
  
@@ -375,19 +481,46 @@ mv backup.tar backupdir
  
 tar -tvf backup.tar
 ## OUTPUT
-
+-rw-r--r-- root/root       114 2020-07-05 23:17:07 bench.py
+-rw-r--r-- root/root         0 2024-02-21 13:41:13 file
+-rw-r--r-- root/root        24 2024-02-21 13:28:46 file1
+-rw-r--r-- root/root        29 2024-02-21 13:32:34 file11
+-rw-r--r-- root/root        31 2024-02-21 13:29:10 file2
+-rw-r--r-- root/root       131 2024-02-21 15:53:13 file21
+-rw-r--r-- root/root       155 2024-02-21 15:54:56 file22
+-rw-r--r-- root/root       210 2024-02-21 21:18:35 file23
+-rw-r--r-- root/root        76 2020-07-03 14:45:56 hello.c
+-rw-r--r-- root/root        22 2020-06-26 14:57:33 hello.js
+-rw-r--r-- root/root        96 2024-02-21 21:09:36 newfile
+-rw-r--r-- root/root       151 2020-07-05 23:19:13 readme.txt
+-rw-r--r-- root/root        52 2024-02-21 21:21:17 urllist.txt
 
 tar -xvf backup.tar
 ## OUTPUT
-
+bench.py
+file
+file1
+file11
+file2
+file21
+file22
+file23
+hello.c
+hello.js
+newfile
+readme.txt
+urllist.txt
 gzip backup.tar
 
 ls .gz
 ## OUTPUT
- 
+ backup.tar.gz  bench.py       hello.c        hello.js       readme.txt
 gunzip backup.tar.gz
 ## OUTPUT
-
+bench.py
+hello.c
+hello.js
+readme.txt
  
 # Shell Script
 ```
@@ -397,7 +530,7 @@ echo 'echo Hello World‘; exit 0 >> my-script.sh
 chmod 755 my-script.sh
 ./my-script.sh
 ## OUTPUT
-
+Hello World
  
 cat << stop > herecheck.txt
 ```
@@ -409,7 +542,9 @@ stop
 
 cat herecheck.txt
 ## OUTPUT
-
+hello in this world
+i cant stop
+for this non stop movement
 
 cat < scriptest.sh 
 ```bash
@@ -447,24 +582,38 @@ chmod 777 scriptest.sh
 ./scriptest.sh 1 2 3
 
 ## OUTPUT
-
+“File name is ./scriptest.sh ”
+File name is  scriptest.sh
+“First arg. is ” 1
+“Second arg. is ” 2
+“Third arg. is ” 3
+“Fourth arg. is ”
+The $@ is  1 2 3
+The $\# is  1#
+The $$ is  5564
+    PID TTY          TIME CMD
+   5406 pts/0    00:00:00 bash
+   5471 pts/0    00:00:00 bash
+   5564 pts/0    00:00:00 bash
+   5576 pts/0    00:00:00 ps
  
 ls file1
 ## OUTPUT
-
+file1  file2  file3
 echo $?
 ## OUTPUT 
+0
 ./one
 bash: ./one: Permission denied
  
 echo $?
 ## OUTPUT 
- 
+ 126
 abcd
  
 echo $?
  ## OUTPUT
-
+127
 
  
 # mis-using string comparisons
@@ -496,14 +645,14 @@ echo "$val1 is less than $val2"
 fi
 ```
 ##OUTPUT
-
+baseball is less than hockey
 
 
 chmod 755 strcomp.sh
  
 ./strcomp.sh 
 ## OUTPUT
-
+baseball is less than hockey
 
 # check file ownership
 cat < psswdperm.sh 
@@ -530,7 +679,7 @@ fi
  ```
 ./psswdperm.sh
 ## OUTPUT
-
+Sorry, you are not the owner of the /etc/passwd file
 # check if with file location
 cat>ifnested.sh 
 ```bash
@@ -576,7 +725,9 @@ fi
 
 ./ifnested.sh 
 ## OUTPUT
-
+“/home/sec The object exists, is it a file?”
+“No,/home/sec it is not a file!”
+“But /home/sec/.bash_history is a file!”
 
 
 # using numeric test comparisons
@@ -620,7 +771,8 @@ $ chmod 755 iftest.sh
  
 $ ./iftest.sh 
 ##OUTPUT
-
+“The test value 10 is greater than 5”
+“The values are different”
 # check if a file
 cat > ifnested.sh 
 ```bash
@@ -669,7 +821,9 @@ $ chmod 755 ifnested.sh
  
 $ ./ifnested.sh 
 ##OUTPUT
-
+“/home/sec The object exists, is it a file?”
+“No,/home/sec it is not a file!”
+“But /home/sec/.bash_history is a file!”
 # looking for a possible value using elif
 cat elifcheck.sh 
 ```bash
@@ -697,7 +851,7 @@ $ chmod 755 elifcheck.sh
  
 $ ./elifcheck.sh 
 ## OUTPUT
-
+Sorry, you are not allowed here
 
 # testing compound comparisons
 cat> ifcompound.sh 
@@ -713,7 +867,7 @@ fi
 $ chmod 755 ifcompound.sh
 $ ./ifcompound.sh 
 ## OUTPUT
-
+The file exists and you can write to it
 # using the case command
 cat >casecheck.sh 
 ```bash
@@ -732,7 +886,7 @@ esac
 $ chmod 755 casecheck.sh 
  
 $ ./casecheck.sh 
- 
+ Sorry, you are not allowed here
 cat > whiletest
 ```bash
 #!/bin/bash
@@ -747,7 +901,16 @@ done
 $ chmod 755 whiletest.sh
  
 $ ./whiletest.sh
- 
+ 10
+9
+8
+7
+6
+5
+4
+3
+2
+1
  
 cat untiltest.sh 
 ```bash
@@ -760,7 +923,10 @@ var1=$[ $var1 - 25 ]
 done
 ``` 
 $ chmod 755 untiltest.sh
- 
+ 100
+75
+50
+25
  
  
 cat forin1.sh 
@@ -774,7 +940,12 @@ done
  ```
  
 $ chmod 755 forin1.sh
- 
+ The next state is Alabama
+The next state is Alaska
+The next state is Arizona
+The next state is Arkansas
+The next state is California
+The next state is Colorado
  
 cat forin2.sh 
 ```bash
@@ -787,7 +958,7 @@ done
  ```
  
 $ chmod 755 forin2.sh
- 
+
 cat forin2.sh 
 ```bash
 \#!/bin/bash
